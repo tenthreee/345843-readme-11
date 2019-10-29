@@ -1,7 +1,7 @@
 <?php
 $is_auth = rand(0, 1);
 
-$user_name = 'Триша'; // укажите здесь ваше имя
+$user_name = 'Триша';
 
 $cards = [
     [
@@ -40,6 +40,29 @@ $cards = [
         'avatar' => 'userpic.jpg'
     ]
 ];
+
+function cut_text ($text, $num_letters = 300) {
+    $num = mb_strlen($text);
+
+    if ($num > $num_letters) {
+        $words = explode(" ", $text);
+        $words_letters = 0;
+
+        foreach ($words as $value) {
+          $words_letters += mb_strlen($value);
+
+          if ($words_letters < $num_letters) {
+            $new_words[] = $value;
+            $text = implode(" ", $new_words);
+            $text .= "...";
+          } else {
+            break;
+          }
+        }
+    }
+
+    return $text;
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -257,7 +280,10 @@ $cards = [
                     </blockquote>
                     <?php break;?>
                     <?php case 'post-text' : ?>
-                    <p><?= $item['content']; ?></p>
+                    <p><?= cut_text($item['content']); ?></p>
+                    <?php if (mb_strlen($item['content']) > mb_strlen(cut_text($item['content']))) : ?>
+                    <a class="post-text__more-link" href="#">Читать далее</a>
+                    <?php endif; ?>
                     <?php break;?>
                     <?php case 'post-link' : ?>
                     <div class="post-link__wrapper">
