@@ -14,7 +14,7 @@ $cards = [
     [
         'title' => 'Игра престолов',
         'type' => 'post-text',
-        'content' => 'Не могу дождаться начала финального сезона своего любимого сериала!',
+        'content' => 'Не могу дождаться начала финального сезона своего любимого сериала! Не могу дождаться начала финального сезона своего любимого сериала! Не могу дождаться начала финального сезона своего любимого сериала! Не могу дождаться начала финального сезона своего любимого сериала! Не могу дождаться начала финального сезона своего любимого сериала! Не могу дождаться начала финального сезона своего любимого сериала! Не могу дождаться начала финального сезона своего любимого сериала! Не могу дождаться начала финального сезона своего любимого сериала! Не могу дождаться начала финального сезона своего любимого сериала! Не могу дождаться начала финального сезона своего любимого сериала!',
         'user_name' => 'Владик',
         'avatar' => 'userpic.jpg'
     ],
@@ -41,7 +41,7 @@ $cards = [
     ]
 ];
 
-function cut_text ($text, $num_letters = 300) {
+function cut_text (string $text, int $num_letters = 300): string {
     $num = mb_strlen($text);
 
     if ($num > $num_letters) {
@@ -49,15 +49,16 @@ function cut_text ($text, $num_letters = 300) {
         $words_letters = 0;
 
         foreach ($words as $value) {
-          $words_letters += mb_strlen($value);
+          $words_letters += mb_strlen($value) + 1;
+          $new_words;
 
-          if ($words_letters < $num_letters) {
-            $new_words[] = $value;
-            $text = implode(" ", $new_words);
-            $text .= "...";
-          } else {
-            break;
+          if ($words_letters >= $num_letters) {
+              break;
           }
+
+          $new_words[] = $value;
+          $text = implode(" ", $new_words);
+          $text .= "...";
         }
     }
 
