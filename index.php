@@ -68,7 +68,7 @@ function cut_text (string $text, int $num_letters = 300): string {
     return $text;
 }
 
-function esc($str) {
+function esc(string $str): string {
 	$text = htmlspecialchars($str);
 
 	return $text;
