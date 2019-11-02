@@ -138,7 +138,7 @@ $layout_content = include_template('layout.php', [
 	'content' => $page_content,
     'is_auth' => $is_auth,
     'user_name' => $user_name,
-	'title' => 'readme: популярное',
+	'title' => 'readme: популярное'
 ]);
 
 print($layout_content);
