@@ -149,7 +149,7 @@
                         </div>
                         <div class="post__info">
                             <b class="post__author-name"><?= $card['user_name']; ?></b>
-                            <time class="post__time" datetime="">дата</time>
+                            <time class="post__time" datetime="<?= $card['datetime']; ?>"><?= $card['date']; ?></time>
                         </div>
                     </a>
                 </div>
