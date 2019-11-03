@@ -117,7 +117,7 @@
                                 <h3><?= esc($card['title']); ?></h3>
                             </div>
                         </div>
-                        <span><?= $card['content']; ?></span>
+                        <span><?= esc($card['content']); ?></span>
                     </a>
                 </div>
                 <?php break;?>
@@ -148,8 +148,8 @@
                             <img class="post__author-avatar" src="img/<?= $card['avatar']; ?>" alt="Аватар пользователя">
                         </div>
                         <div class="post__info">
-                            <b class="post__author-name"><?= $card['user_name']; ?></b>
-                            <time class="post__time" datetime="<?= $card['datetime']; ?>"><?= $card['date']; ?></time>
+                            <b class="post__author-name"><?= esc($card['user_name']); ?></b>
+                            <time class="post__time" datetime="<?= $card['datetime']; ?>"><?= get_relative_time($card['datetime']); ?></time>
                         </div>
                     </a>
                 </div>

@@ -81,7 +81,6 @@ function get_relative_time (string $date): string {
     $dt_now = date_create("now");
     $dt_end = date_create($date);
     $diff = date_diff($dt_end, $dt_now);
-
     $diff_i = date_interval_format($diff, "%i");
     $diff_h = date_interval_format($diff, "%h");
     $diff_d = date_interval_format($diff, "%d");
@@ -89,28 +88,20 @@ function get_relative_time (string $date): string {
 
     if ($diff_m) {
         $noun = get_noun_plural_form($diff_m, 'месяц', 'месяца', 'месяцев');
-        $date = date_format($dt_end, 'n ' . $noun . ' назад');
-    }
-
-    if (!$diff_m and $diff_d % 7 < 5) {
-        $weeks = $diff_d / 7;
+        $date = $diff_m . ' ' . $noun . ' назад';
+    } elseif ($diff_d and $diff_d >= 7) {
+        $weeks = (int)$diff_d / 7;
         $noun = get_noun_plural_form($weeks, 'неделя', 'недели', 'недель');
-        $date = date_format($dt_end, $weeks . ' ' . $noun . ' назад');
-    }
-
-    if (!$diff_m and $diff_d < 7) {
+        $date = $weeks . ' ' . $noun . ' назад';
+    } elseif ($diff_d and $diff_d < 7) {
         $noun = get_noun_plural_form($diff_d, 'день', 'дня', 'дней');
-        $date = date_format($dt_end, 'j ' . $noun . ' назад');
-    }
-
-    if (!$diff_m and !$diff_d and $diff_h) {
+        $date = $diff_d . ' ' . $noun . ' назад';
+    } elseif ($diff_h) {
         $noun = get_noun_plural_form($diff_h, 'час', 'часа', 'часов');
-        $date = date_format($dt_end, 'G ' . $noun . ' назад');
-    }
-
-    if (!$diff_m and !$diff_d and !$diff_h and $diff_i) {
+        $date = $diff_h . ' ' . $noun . ' назад';
+    } else {
         $noun = get_noun_plural_form($diff_i, 'минута', 'минуты', 'минут');
-        $date = date_format($dt_end, 'i ' . $noun . ' назад');
+        $date = $diff_i . ' ' . $noun . ' назад';
     }
 
     return $date;
@@ -119,10 +110,7 @@ function get_relative_time (string $date): string {
 function get_posts_dates (array $array): array {
     foreach ($array as $key => &$value) {
         $dt_post = generate_random_date($key);
-        $rel_date = get_relative_time($dt_post);
-
         $value['datetime'] = $dt_post;
-        $value['date'] = $rel_date;
     }
 
     return $array;
@@ -142,4 +130,3 @@ $layout_content = include_template('layout.php', [
 ]);
 
 print($layout_content);
-?>
